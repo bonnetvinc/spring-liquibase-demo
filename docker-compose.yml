@@ -1,0 +1,32 @@
+version: '3'
+services:
+  liquibase_db:
+    image: mysql:5.7
+    container_name: liquibase_db
+    environment:
+      MYSQL_DATABASE: poc_liquibase_db
+      MYSQL_USER: db_user
+      MYSQL_PASSWORD: db_user_pass
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - "3306:3306"
+    restart: always
+    expose:
+      - '3306'
+    volumes:
+      - dbdata:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: liqubase_pma
+    links:
+      - liquibase_db
+    environment:
+      PMA_HOST: liquibase_db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8081:80
+volumes:
+  dbdata:

@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/create-schemas.xml
+  - include:
+      file: db/changelog/insert-leaders-data.xml
+  - include:
+      file: db/changelog/insert-events-data.xml
